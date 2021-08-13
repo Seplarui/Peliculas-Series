@@ -29,7 +29,7 @@ public class PeliculaServiceImpl implements PeliculaService{
 
     @Override
     public Pelicula savePelicula(Pelicula pelicula) {
-        if (pelicula != null) {
+        if (pelicula.getTitulo() != null) {
             return peliculaRepository.save(pelicula);
         }
         return new Pelicula();

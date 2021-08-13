@@ -21,7 +21,15 @@ public class Pelicula {
     int anyo;
     @Column(name="fecha_vista")
     String fecha_vista;
+    @Column(name="Director")
+    String director;
 
+    public String getDirector() {
+        return director;
+    }
+    public void setDirector(String director) {
+        this.director = director;
+    }
     public Long getId() {
         return id;
     }

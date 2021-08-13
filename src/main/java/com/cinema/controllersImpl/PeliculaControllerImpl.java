@@ -8,9 +8,11 @@ import com.cinema.entities.Pelicula;
 import com.cinema.service.PeliculaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 public class PeliculaControllerImpl implements PeliculaController {
@@ -26,21 +28,30 @@ public class PeliculaControllerImpl implements PeliculaController {
     }
 
     @Override
-    public Optional<Pelicula> getPeliculaById(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+    @RequestMapping(value="/peliculas/{id}", method = RequestMethod.GET)
+    public Optional<Pelicula> getPeliculaById(@PathVariable Long id) {
+       return peliculaService.findPeliculaById(id);
     }
 
     @Override
+    @RequestMapping(value="/peliculas/add", method=RequestMethod.POST)
     public Pelicula addPelicula(Pelicula pelicula) {
-        // TODO Auto-generated method stub
+        if(pelicula.getTitulo()!=null) {
+            return peliculaService.savePelicula(pelicula);
+        }
         return null;
+        
     }
 
     @Override
-    public String deletePelicula(Long id) {
-        // TODO Auto-generated method stub
-        return null;
+    @RequestMapping(value="peliculas/delete/{id}", method=RequestMethod.DELETE)
+    public String deletePelicula(@PathVariable Long id) {
+        
+        if (id != 0){
+            peliculaService.deletePelicula(id);
+            return "Película con id: "+id + " borrada";
+        }
+        return "ERROR: No se ha podido eliminar la película";
     }
 
     @Override
